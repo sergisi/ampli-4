@@ -1,7 +1,5 @@
 package expression.simple;
 
-import expression.composable.Operation;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import sheet.Cell;
 
@@ -14,18 +12,18 @@ public class ReferenceTest {
 
     @Test
     void evaluateNonEmptyCellTest(){
-        Cell  cell1 = new Cell(new SomeValue(7));
-        Cell cell3 = new Cell(new Reference(cell1));
+        cell1 = new Cell(new SomeValue(7));
+        cell2 = new Cell(new Reference(cell1));
 
-        assertEquals(cell1.evaluate(), cell3.evaluate());
+        assertEquals(cell1.evaluate(), cell2.evaluate());
     }
 
     @Test
     void evaluateEmptyCellTest(){
-        Cell  cell1 = new Cell(NoValue.getEmpty());
-        Cell cell3 = new Cell(new Reference(cell1));
+        cell1 = new Cell(NoValue.getEmpty());
+        cell2 = new Cell(new Reference(cell1));
 
-        assertEquals(cell1.evaluate(), cell3.evaluate());
+        assertEquals(cell1.evaluate(), cell2.evaluate());
     }
 
 

@@ -1,6 +1,5 @@
 package sheet;
 
-import expression.composable.Operation;
 import expression.simple.NoValue;
 import expression.simple.SomeValue;
 import org.junit.jupiter.api.Test;
@@ -14,14 +13,12 @@ public class CellTest {
     Cell cell2;
     Cell cell3;
 
-
     @Test
     void constructorTest(){
         cell1 = new Cell();
 
         assertEquals(NoValue.getEmpty(), cell1.evaluate());
     }
-
 
     @Test
     void cellEvaluationTest(){
@@ -45,5 +42,4 @@ public class CellTest {
 
         assertEquals(cell1.evaluate(), cell2.evaluate());
     }
-
 }
