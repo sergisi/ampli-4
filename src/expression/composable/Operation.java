@@ -4,10 +4,13 @@ import expression.Expression;
 import expression.simple.MaybeValue;
 import expression.simple.NoValue;
 import expression.utils.IntBinaryOperation;
+import sheet.Cell;
 
 import java.util.Objects;
+import java.util.Observable;
+import java.util.Set;
 
-public class Operation extends Expression {
+public class Operation implements Expression {
 
     private final Expression left, right;
     private final IntBinaryOperation operator;
@@ -24,6 +27,13 @@ public class Operation extends Expression {
         } catch (Exception e) {
             return NoValue.getEmpty();
         }
+    }
+
+    @Override
+    public Set<Cell> references() {
+        Set<Cell> refs = left.references();
+        refs.addAll(right.references());
+        return refs;
     }
 
     @Override
@@ -55,4 +65,5 @@ public class Operation extends Expression {
     public static Operation mult(Expression left, Expression right) {
         return new Operation(left, right, (a, b) -> a * b);
     }
+
 }

@@ -1,10 +1,14 @@
 package expression.simple;
 
 import expression.utils.IntBinaryOperation;
+import sheet.Cell;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Observable;
+import java.util.Set;
 
-public class SomeValue extends MaybeValue {
+public class SomeValue implements MaybeValue {
 
     private final int value;
 
@@ -32,6 +36,11 @@ public class SomeValue extends MaybeValue {
         return this;
     }
 
+    @Override
+    public Set<Cell> references() {
+        return new HashSet<>();
+    }
+
     public int getValue() {
         return value;
     }
@@ -55,4 +64,6 @@ public class SomeValue extends MaybeValue {
                 "value=" + value +
                 '}';
     }
+
+
 }

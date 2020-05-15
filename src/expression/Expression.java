@@ -1,7 +1,11 @@
 package expression;
 
 import expression.simple.MaybeValue;
+import sheet.Cell;
 
-public abstract class Expression {
-    public abstract MaybeValue evaluate();
+import java.util.Set;
+
+public interface Expression {
+    MaybeValue evaluate();
+    Set<Cell> references();
 }

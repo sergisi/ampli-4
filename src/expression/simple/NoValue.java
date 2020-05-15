@@ -1,8 +1,13 @@
 package expression.simple;
 
 import expression.utils.IntBinaryOperation;
+import sheet.Cell;
 
-public class NoValue extends MaybeValue {
+import java.util.HashSet;
+import java.util.Observable;
+import java.util.Set;
+
+public class NoValue implements MaybeValue {
     private static NoValue EMPTY;
 
     private NoValue() {}
@@ -27,8 +32,14 @@ public class NoValue extends MaybeValue {
         return getEmpty();
     }
 
+    @Override
+    public Set<Cell> references() {
+        return new HashSet<>();
+    }
+
     public static NoValue getEmpty() {
         if(EMPTY == null) EMPTY = new NoValue();
         return EMPTY;
     }
+
 }
