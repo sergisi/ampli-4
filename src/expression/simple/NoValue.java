@@ -3,7 +3,9 @@ package expression.simple;
 import expression.utils.IntBinaryOperation;
 
 public class NoValue extends MaybeValue {
-    public static NoValue EMPTY;
+    private static NoValue EMPTY;
+
+    private NoValue() {}
 
     @Override
     public boolean hasValue() {

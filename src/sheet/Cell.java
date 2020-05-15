@@ -8,10 +8,10 @@ import java.util.Objects;
 
 public class Cell extends Expression {
 
-    Expression expression;
+    private Expression expression;
 
     public Cell(){
-        this.expression = new NoValue();
+        this.expression = NoValue.getEmpty();
     }
 
     public Cell(Expression expression){
