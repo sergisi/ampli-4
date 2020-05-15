@@ -6,7 +6,7 @@ import expression.simple.NoValue;
 
 import java.util.Objects;
 
-public class Cell extends Expression {
+public class Cell {
 
     private Expression expression;
 
@@ -18,7 +18,6 @@ public class Cell extends Expression {
         this.expression = expression;
     }
 
-    @Override
     public MaybeValue evaluate() {
         return expression.evaluate();
     }
