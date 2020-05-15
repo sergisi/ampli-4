@@ -3,6 +3,8 @@ package expression.simple;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashSet;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class NoValueTest {
@@ -27,6 +29,10 @@ class NoValueTest {
         assertEquals(EMPTY, EMPTY.liftA2(EMPTY, Integer::sum));
     }
 
+    @Test
+    void testReferences() {
+        assertEquals(new HashSet<>(), EMPTY.references());
+    }
 
 
     @Test

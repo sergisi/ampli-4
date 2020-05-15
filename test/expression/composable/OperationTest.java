@@ -1,8 +1,12 @@
 package expression.composable;
 
+import expression.simple.Reference;
 import expression.simple.SomeValue;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import sheet.Cell;
+
+import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,5 +33,17 @@ class OperationTest {
     @Test
     void mult() {
         assertEquals(new SomeValue(12), Operation.mult(sm1, sm2).evaluate());
+    }
+
+    @Test
+    void testReferences() {
+        Cell cella = new Cell();
+        Cell cellb = new Cell();
+        Operation op = Operation.sum(new Reference(cella), new Reference(cellb));
+        HashSet<Cell> set = new HashSet<>();
+        set.add(cella);
+        set.add(cellb);
+        assertEquals(set, op.references());
+
     }
 }

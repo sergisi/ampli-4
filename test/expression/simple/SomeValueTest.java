@@ -3,6 +3,8 @@ package expression.simple;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashSet;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SomeValueTest {
@@ -24,6 +26,12 @@ class SomeValueTest {
     void liftA2() {
         // All cases with empty are already tested at NoValue
         assertEquals(new SomeValue(21), sm1.liftA2(sm2, (a, b) -> a * b));
+    }
+
+
+    @Test
+    void testReferences() {
+        assertEquals(new HashSet<>(), sm1.references());
     }
 
     @Test
