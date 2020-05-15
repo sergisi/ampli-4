@@ -45,7 +45,9 @@ public class CellTest {
     }
 
     @Test
-    void cellReferences() {
-        assertEquals(Set.of(cell1), cell2.references());
+    void testLazyness() {
+        assertEquals(new SomeValue(7), cell2.evaluate());
+        cell1.set(new SomeValue(2));
+        assertEquals(new SomeValue(2), cell2.evaluate());
     }
 }

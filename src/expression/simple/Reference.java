@@ -5,7 +5,6 @@ import sheet.Cell;
 
 import java.util.HashSet;
 import java.util.Objects;
-import java.util.Observable;
 import java.util.Set;
 
 public class Reference implements Expression {
@@ -23,9 +22,7 @@ public class Reference implements Expression {
 
     @Override
     public Set<Cell> references() {
-        Set<Cell> refs = ref.references();
-        refs.add(ref);
-        return refs;
+        return new HashSet<>() {{add(ref);}};
     }
 
     @Override

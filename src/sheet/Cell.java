@@ -7,32 +7,48 @@ import expression.simple.NoValue;
 import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Set;
 
-public class Cell extends Observable implements Observer{
+public class Cell extends Observable implements Observer {
 
     private Expression expression;
     private MaybeValue lazyValue;
 
-    public Cell(){
+    public Cell() {
         this(NoValue.getEmpty());
     }
 
-    public Cell(Expression expression){
+    public Cell(Expression expression) {
         this.expression = expression;
         this.lazyValue = this.expression.evaluate();
-        // TODO: who observes.
+        addObservers();
     }
 
     public MaybeValue evaluate() {
         return lazyValue;
     }
 
-    public void set(Expression exp){
+    public void set(Expression exp) {
+        deleteCurrentObservers();
         this.expression = exp;
-        this.lazyValue = this.expression.evaluate();
-        //TODO: who observes
-        notifyObservers(this);
+        MaybeValue val = this.expression.evaluate();
+        addObservers();
+        if (!val.equals(lazyValue)) {
+            setChanged();
+        }
+        lazyValue = val;
+        notifyObservers();
+    }
+
+    private void deleteCurrentObservers() {
+        for (Cell cell : this.expression.references()) {
+            cell.deleteObserver(this);
+        }
+    }
+
+    private void addObservers() {
+        for (Cell cell : this.expression.references()) {
+            cell.addObserver(this);
+        }
     }
 
     @Override
@@ -50,10 +66,19 @@ public class Cell extends Observable implements Observer{
 
     @Override
     public void update(Observable o, Object arg) {
-        lazyValue = expression.evaluate();
+        MaybeValue val = expression.evaluate();
+        if (!val.equals(lazyValue)) {
+            setChanged();
+        }
+        lazyValue = val;
+        notifyObservers();
     }
 
-    public Set<Cell> references() {
-        return this.expression.references();
+    @Override
+    public String toString() {
+        return "Cell{" +
+                "expression=" + expression +
+                ", lazyValue=" + lazyValue +
+                '}';
     }
 }

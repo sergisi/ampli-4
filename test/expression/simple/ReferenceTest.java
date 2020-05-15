@@ -5,6 +5,7 @@ import sheet.Cell;
 
 import java.sql.Ref;
 import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -33,11 +34,7 @@ public class ReferenceTest {
         Cell cella = new Cell();
         Cell cellb = new Cell(new Reference(cella));
         Reference ref = new Reference(cellb);
-
-        HashSet<Cell> set = new HashSet<>();
-        set.add(cella);
-        set.add(cellb);
-        assertEquals(set, ref.references());
+        assertEquals(Set.of(cellb), ref.references());
     }
 
 
