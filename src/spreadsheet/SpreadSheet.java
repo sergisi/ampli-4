@@ -2,6 +2,7 @@ package spreadsheet;
 
 import expression.Expression;
 import expression.composable.Operation;
+import expression.simple.EitherValue;
 import expression.simple.Reference;
 import expression.simple.RightValue;
 import sheet.Cell;
@@ -89,4 +90,23 @@ public class SpreadSheet {
         return Operation.mult(new Reference(SHEET.get(ref1)), new Reference(SHEET.get(ref2)));
     }
 
+    public static EitherValue get(String name){
+        return SHEET.get(name).evaluate();
+    }
+
+    public static void put(String name, Expression expr){
+        SHEET.put(name, expr);
+    }
+
+    public static void put(String name, int value){
+        SHEET.put(name, new RightValue(value));
+    }
+
+    public static void put(String name, String refName){
+        SHEET.put(name, new Reference(SHEET.get(refName)));
+    }
+
+    public static void clear(){
+        SHEET.clear();
+    }
 }
