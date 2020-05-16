@@ -17,7 +17,7 @@ public class Sheet {
     public Sheet(int measure) {
         this.measure = measure;
         map = new HashMap<>();
-        pattern = Pattern.compile("^(?<chars>[a-zA-Z]*)(?<numb>\\d*)$");
+        pattern = Pattern.compile("^(?<chars>[a-zA-Z]+)(?<numb>\\d+)$");
     }
 
     public EitherValue get(String toget) {
