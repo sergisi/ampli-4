@@ -3,8 +3,6 @@ package expression.simple;
 import org.junit.jupiter.api.Test;
 import sheet.Cell;
 
-import java.sql.Ref;
-import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,7 +14,7 @@ public class ReferenceTest {
 
     @Test
     void evaluateNonEmptyCellTest(){
-        cell1 = new Cell(new SomeValue(7));
+        cell1 = new Cell(new RightValue(7));
         cell2 = new Cell(new Reference(cell1));
 
         assertEquals(cell1.evaluate(), cell2.evaluate());
@@ -24,7 +22,7 @@ public class ReferenceTest {
 
     @Test
     void evaluateEmptyCellTest(){
-        cell1 = new Cell(NoValue.getEmpty());
+        cell1 = new Cell(LeftError.getEmpty());
         cell2 = new Cell(new Reference(cell1));
         assertEquals(cell1.evaluate(), cell2.evaluate());
     }

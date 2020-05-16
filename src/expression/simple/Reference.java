@@ -16,7 +16,7 @@ public class Reference implements Expression {
     }
 
     @Override
-    public MaybeValue evaluate() {
+    public EitherValue evaluate() {
         return ref.evaluate();
     }
 

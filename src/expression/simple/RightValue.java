@@ -5,14 +5,13 @@ import sheet.Cell;
 
 import java.util.HashSet;
 import java.util.Objects;
-import java.util.Observable;
 import java.util.Set;
 
-public class SomeValue implements MaybeValue {
+public class RightValue implements EitherValue {
 
     private final int value;
 
-    public SomeValue(int value) {
+    public RightValue(int value) {
         this.value = value;
     }
 
@@ -22,17 +21,17 @@ public class SomeValue implements MaybeValue {
     }
 
     @Override
-    public MaybeValue liftA2(MaybeValue val2, IntBinaryOperation op) {
+    public EitherValue liftA2(EitherValue val2, IntBinaryOperation op) {
         return val2.liftA2(this, op);
     }
 
     @Override
-    public MaybeValue liftA2(SomeValue val1, IntBinaryOperation op) {
-        return new SomeValue(op.operate(val1.getValue(), this.getValue()));
+    public EitherValue liftA2(RightValue val1, IntBinaryOperation op) {
+        return new RightValue(op.operate(val1.getValue(), this.getValue()));
     }
 
     @Override
-    public MaybeValue evaluate() {
+    public EitherValue evaluate() {
         return this;
     }
 
@@ -49,7 +48,7 @@ public class SomeValue implements MaybeValue {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SomeValue someValue = (SomeValue) o;
+        RightValue someValue = (RightValue) o;
         return value == someValue.value;
     }
 

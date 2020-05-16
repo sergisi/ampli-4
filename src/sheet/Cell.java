@@ -1,8 +1,8 @@
 package sheet;
 
 import expression.Expression;
-import expression.simple.MaybeValue;
-import expression.simple.NoValue;
+import expression.simple.EitherValue;
+import expression.simple.LeftError;
 
 import java.util.Objects;
 import java.util.Observable;
@@ -11,10 +11,10 @@ import java.util.Observer;
 public class Cell extends Observable implements Observer {
 
     private Expression expression;
-    private MaybeValue lazyValue;
+    private EitherValue lazyValue;
 
     public Cell() {
-        this(NoValue.getEmpty());
+        this(LeftError.getEmpty());
     }
 
     public Cell(Expression expression) {
@@ -23,14 +23,14 @@ public class Cell extends Observable implements Observer {
         addObservers();
     }
 
-    public MaybeValue evaluate() {
+    public EitherValue evaluate() {
         return lazyValue;
     }
 
     public void set(Expression exp) {
         deleteCurrentObservers();
         this.expression = exp;
-        MaybeValue val = this.expression.evaluate();
+        EitherValue val = this.expression.evaluate();
         addObservers();
         if (!val.equals(lazyValue)) {
             setChanged();
@@ -66,7 +66,7 @@ public class Cell extends Observable implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        MaybeValue val = expression.evaluate();
+        EitherValue val = expression.evaluate();
         if (!val.equals(lazyValue)) {
             setChanged();
         }

@@ -1,13 +1,12 @@
 package expression.composable;
 
 import expression.Expression;
-import expression.simple.MaybeValue;
-import expression.simple.NoValue;
+import expression.simple.EitherValue;
+import expression.simple.LeftError;
 import expression.utils.IntBinaryOperation;
 import sheet.Cell;
 
 import java.util.Objects;
-import java.util.Observable;
 import java.util.Set;
 
 public class Operation implements Expression {
@@ -21,11 +20,11 @@ public class Operation implements Expression {
         this.operator = operator;
     }
 
-    public MaybeValue evaluate() {
+    public EitherValue evaluate() {
         try {
             return left.evaluate().liftA2(right.evaluate(), this.operator);
         } catch (Exception e) {
-            return NoValue.getEmpty();
+            return new LeftError(e.getMessage());
         }
     }
 

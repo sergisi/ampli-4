@@ -9,12 +9,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SomeValueTest {
 
-    static SomeValue sm1, sm2;
+    static RightValue sm1, sm2;
 
     @BeforeAll
     static void setUp() {
-        sm1 = new SomeValue(3);
-        sm2 = new SomeValue(7);
+        sm1 = new RightValue(3);
+        sm2 = new RightValue(7);
     }
 
     @Test
@@ -25,7 +25,7 @@ class SomeValueTest {
     @Test
     void liftA2() {
         // All cases with empty are already tested at NoValue
-        assertEquals(new SomeValue(21), sm1.liftA2(sm2, (a, b) -> a * b));
+        assertEquals(new RightValue(21), sm1.liftA2(sm2, (a, b) -> a * b));
     }
 
 
@@ -36,7 +36,7 @@ class SomeValueTest {
 
     @Test
     void evaluate() {
-        assertEquals(new SomeValue(3), sm1.evaluate());
+        assertEquals(new RightValue(3), sm1.evaluate());
     }
 
 }
