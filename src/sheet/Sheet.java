@@ -20,11 +20,11 @@ public class Sheet {
         pattern = Pattern.compile("^(?<chars>[a-zA-Z]+)(?<numb>\\d+)$");
     }
 
-    public EitherValue get(String toget) {
+    public Cell get(String toget) {
         if (safe(toget)) {
-            return map.get(toget).evaluate();
+            return map.get(toget);
         }
-        return new LeftError("The reference was outside the sheet! " + toget);
+        throw new NoSuchElementException("The reference was outside the sheet! " + toget);
     }
 
     private boolean safe(String toget) {

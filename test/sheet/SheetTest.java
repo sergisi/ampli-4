@@ -2,7 +2,6 @@ package sheet;
 
 import expression.simple.LeftError;
 import expression.simple.RightValue;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,20 +23,20 @@ public class SheetTest {
 
     @Test
     void getValidCell() {
-        assertEquals(LeftError.getEmpty(), sheet1.get("a1"));
+        assertEquals(LeftError.getEmpty(), sheet1.get("a1").evaluate());
     }
 
     @Test
     void getInvalidCell() {
         String a = "The reference was outside the sheet! ";
-        assertEquals(new LeftError(a + "a24"), sheet1.get("a24"));
-        assertEquals(new LeftError(a + "zzzzzz1"), sheet1.get("zzzzzz1"));
+        assertThrows(NoSuchElementException.class, () -> sheet1.get("a24").evaluate());
+        assertThrows(NoSuchElementException.class, () -> sheet1.get("zzzzzz1").evaluate());
     }
 
     @Test
     void testPutValidCell() {
         sheet1.put("a1", new RightValue(5));
-        assertEquals(new RightValue(5), sheet1.get("a1"));
+        assertEquals(new RightValue(5), sheet1.get("a1").evaluate());
     }
 
     @Test
@@ -49,10 +48,10 @@ public class SheetTest {
     @Test
     void testClear() {
         sheet1.put("a1", new RightValue(5));
-        assertEquals(new RightValue(5), sheet1.get("a1"));
+        assertEquals(new RightValue(5), sheet1.get("a1").evaluate());
 
         sheet1.clear();
-        assertEquals(LeftError.getEmpty(), sheet1.get("a1"));
+        assertEquals(LeftError.getEmpty(), sheet1.get("a1").evaluate());
     }
 
     @Test

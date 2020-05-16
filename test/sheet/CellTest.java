@@ -47,5 +47,4 @@ public class CellTest {
         cell1.set(new RightValue(2));
         assertEquals(new RightValue(2), cell2.evaluate());
     }
-
 }
