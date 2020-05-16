@@ -1,8 +1,6 @@
 package sheet;
 
 import expression.Expression;
-import expression.simple.EitherValue;
-import expression.simple.LeftError;
 
 import java.util.HashMap;
 import java.util.NoSuchElementException;

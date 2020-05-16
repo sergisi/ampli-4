@@ -65,4 +65,11 @@ public class LeftError implements EitherValue {
     public int hashCode() {
         return Objects.hash(error);
     }
+
+    @Override
+    public String toString() {
+        return "LeftError{" +
+                "error='" + error + '\'' +
+                '}';
+    }
 }
