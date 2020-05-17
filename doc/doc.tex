@@ -74,6 +74,7 @@
 	% Per a realitzar lazyValue en les cel·les se va fer servir el patró observable. 
 	% Cada vegada que es canvia d'expressió es canvien tots els observables per cridar
 	% el metode només quan es necessari
+Per tal de realitzar l'avaluació de les cel·les de forma mandrosa, s'ha decidit utilitzar el patró observable. S'ha definit sobre cada cel·la la variable lazyValue, la qual s'actualitza quan es canvia l'expressió d'una cel·la. A la vegada, es propaga una notificació al llarg dels observables que depenien d'aquesta cel·la, és a dir notifica als observables de les cel·les que contenien observadors sobre la cel·la que ha canviat perquè actualitzin el seu valor. De mateixa manera, aquestes cel·les notifiquen als observables de les cel·les que contenien observadors a aquestes cel·les que contenien observadors sobre la cel·la que ha canviat... Propagant així la notificació al llarg de totes les cel·les que depenien de la cel·la que ha canviat i fent que actualitzin el seu valor.
 	\subsection{Sheet}%Ian
 	% La creació de les cel·les es lazy, es a dir, només es creen quan son estrictament necessaries,
 	% per a evitar ocupar massa memória en sheets molt grans quan no s'utilitza la majoria de cel·les.
@@ -87,6 +88,7 @@
 	\subsection{Equals en Operation}%Quim
 	% Quan es va fer en primer lloc el template Method per a operation es va crear un mètode
 	% equals. Comparar funcions es indecidible com a problema, pel que es va haver d'eliminar
+En primera instància es va decidir fer ús de Template Method per a implementar la part corresponent a Operation, Sum i Mult. Però a l'hora d'implementar el mètode equals ens vam adonar que, al treballar amb funcions anònimes ens donava problemes, ja que, comparar funcions és un problema indecidible. Per tant, es va decidir canviar de metodologia i aplicar l'Strategy Method ja explicat anteriorment.
 	\subsection{Sheet, put i get}%Sergi
 	% Primer vam pensar que només seria necessari utilzar el "MaybeValue" com a retorn del get.
 	% El problema ens va generar era que si ens portaven una casella inval·lida retornavem Empty,
@@ -97,7 +99,7 @@
 	% Es va pensar d'utilitzar Optional, peró llavors el put i el get tindrien diferents formes de comunicar
 	% el mateix error, pel que es va recorrer a les excepcions
 	\section{Conclusions}%Quim
-
+Per la implementació d'aquesta solució s'ha fet ús de tres patrons de disseny diferents. El patró façana el qual ha permés ficar una capa que simplifica i unifica l'utilització del nostre disseny. Per altra banda el patró observador ens ha permés realitzar l'avaluació mandrosa de les cel·les de forma senzilla. També l'Strategy Method, que a falta de no poder treballar amb template method, ens ha permés seguir treballant amb funcions anònimes a Operation. I finalment el patró NullValue, que l'hem adaptat una mica substituint-lo per un EitherValue.
 
 \end{document}
 
