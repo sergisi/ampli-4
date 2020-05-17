@@ -35,20 +35,6 @@ public class Operation implements Expression {
         return refs;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Operation operation = (Operation) o;
-        return left.equals(operation.left) &&
-                right.equals(operation.right);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(left, right);
-    }
-
     public Expression getLeft() {
         return left;
     }
