@@ -56,6 +56,14 @@
 	\maketitle
 	\newpage
 	\section{Introducció}%ian
+
+	En aquest document consta les decisions d'implementació més importants i els errors comesos
+	a l'hora de dissenyar la infraestructura d'un full de càlcul. Una de les prioritats del disseny
+	és que aquest sigui el més mandrós possible. En la implementació se segueixen una sèrie de patrons
+	de disseny que s'aniran mencionant.
+
+
+
 	\section{Disseny}
 	\subsection{Diagrama UML}%InteliJ
 	\subsection{LiftA2}%Sergi
@@ -79,12 +87,51 @@
 	% el metode només quan es necessari
 Per tal de realitzar l'avaluació de les cel·les de forma mandrosa, s'ha decidit utilitzar el patró observable. S'ha definit sobre cada cel·la la variable lazyValue, la qual s'actualitza quan es canvia l'expressió d'una cel·la. A la vegada, es propaga una notificació al llarg dels observables que depenien d'aquesta cel·la, és a dir notifica als observables de les cel·les que contenien observadors sobre la cel·la que ha canviat perquè actualitzin el seu valor. De mateixa manera, aquestes cel·les notifiquen als observables de les cel·les que contenien observadors a aquestes cel·les que contenien observadors sobre la cel·la que ha canviat... Propagant així la notificació al llarg de totes les cel·les que depenien de la cel·la que ha canviat i fent que actualitzin el seu valor.
 	\subsection{Sheet}%Ian
+	Hi ha hagut dues decisions d'implementació
+	rellevants en la classe Sheet, en primer lloc com
+	convertir una adreça en format d'string (ex. "a1")
+	a un format que puguem utilitzar
+	, i en segon lloc la decisió sobre com i on guardar
+	les cel·les.\\
+
+	\begin{itemize}
+	\item
+	Per convertir l'adreça hem utilitzat les expressions
+	regulars de Pattern, on primerament filtrem que la
+	string estigui composta únicament d'una o més lletres
+	seguides d'un o més nombres. Més tard validem que
+	l'adreça obtinguda estigui dintre dels límits del full de càlcul.
+	\item
+	La creació de les cel·les és mandrosa, és a dir, només es creen quan són estrictament necessàries.
+	S'ha decidit fer-ho així per evitar ocupar massa memòria en sheets grans, on realment la majoria
+	de cel·les no s'arribarien a utilitzar. Tot i que accedir amb un array d'arrays sembla més natural,
+	hem decidit utilitzar un HashMap perquè és molt transparent tenint en compte com l'usa l'usuari final.\\
+	Alguns dels motius pels quals hem decidit utilitzar un HashMap en comptes d'un array d'arrays:
+	\begin{itemize}
+	\item Amb un array d'arrays les adreces s'haurien de
+	parsejar molt més sovint, amb un HashMap podem guardar
+	com  clau l'string directament
+	\item Amb un array d'arrays l'estructura quedaria
+	plena de nulls, mentre que amb un HashMap solament
+	guardes el necessari.
+	\item Sheet requeria els mètodes get i put, que ens
+	semblaven més naturals d'un HashMap per l'estructura
+	clau, valor.
+	\end{itemize}
+	\end{itemize}
+
+
 	% La creació de les cel·les es lazy, es a dir, només es creen quan son estrictament necessaries,
 	% per a evitar ocupar massa memória en sheets molt grans quan no s'utilitza la majoria de cel·les.
 	% Tot i que accedir amb una Array d'arrays sembla més natural, un hashmap es molt transparent
 	% per com l'utilitza l'usuari final
 	\section{Problemes}
 	\subsection{References}%Ian
+	A References es guarda la cel·la referenciada i un set de cel·les a les quals referència.
+	References primerament avaluava la cel·la referenciada i les referències d'aquesta,
+	això va acabar donant problemes a l'hora d'afegir observadors (quan es generava el lazyvalue).
+	Ara només retorna la primera referència, aconseguint així una propagació més controlada.
+
 	% References calculaba referències de la seva referència, i això donava problemes
 	% per afegir observadors (quan es generava el lazyvalue)
 	% Ara només retornen la primera referència
