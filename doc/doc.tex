@@ -1,0 +1,103 @@
+% !TeX spellcheck = ca
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{ amssymb }
+\usepackage{tikz}
+\usepackage{float}
+\usepackage[simplified]{pgf-umlcd}
+\usepackage{subfiles}
+\usepackage{listings}
+\usepackage[lighttt]{lmodern}
+\usepackage{color}
+\usepackage{array}
+\usepackage{textcomp}
+\graphicspath{ {img/} }
+
+\usetikzlibrary{positioning,fit,calc,arrows.meta, shapes, snakes}
+%Tot això hauria d'anar en un pkg, però no sé com és fa
+\newcommand*{\assignatura}[1]{\gdef\1assignatura{#1}}
+\newcommand*{\grup}[1]{\gdef\3grup{#1}}
+\newcommand*{\professorat}[1]{\gdef\4professorat{#1}}
+\renewcommand{\title}[1]{\gdef\5title{#1}}
+\renewcommand{\author}[1]{\gdef\6author{#1}}
+\renewcommand{\date}[1]{\gdef\7date{#1}}
+\renewcommand{\baselinestretch}{1.5}
+\renewcommand{\maketitle}{ %fa el maketitle de nou
+	\begin{titlepage}
+		\raggedright{UNIVERSITAT DE LLEIDA \\
+			Escola Politècnica Superior \\
+			Grau en Enginyeria Informàtica\\
+			\1assignatura\\}
+		\vspace{5cm}
+		\centering\huge{\5title \\}
+		\vspace{3cm}
+		\large{\6author} \\
+		\normalsize{\3grup}
+		\vfill
+		Professorat : \4professorat \\
+		Data : \7date
+\end{titlepage}}
+%Emplenar a partir d'aquí per a fer el títol : no se com es fa el package
+%S'han de renombrar totes, inclús date, si un camp es deixa en blanc no apareix
+
+\title{SpreadSheet}
+\author{Ian Palacín Aliana, Quim Picó Mora, Sergi Simón Balcells}
+\date{17 de Maig}
+\assignatura{Ampliació de Bases de dades i Enginyeria del Programari}
+\professorat{JM. Gimeno Illa}
+\grup{Prelab 2}
+
+\renewcommand{\refname}{Referències}
+%Comença el document
+\begin{document}
+	\maketitle
+	\newpage
+	\section{Introducció}
+	\section{Disseny}
+	\subsection{Diagrama UML}
+	\subsection{LiftA2}
+	% Operació de haskell
+	% La idea es treure la necessitat dels ifs en la Operation (treure la lògica del MaybeValue)
+	% S'ha implementat com un double dispatch
+	\subsection{Operation i el patró Strategy}
+	% Template method quedava una mica estrany utilitzant liftA2
+	% Strategy quedava més net
+	\subsection{EitherValue}
+	% Utilitzar MaybeValue no encapsulava els errors que es poguessin generar de forma
+	% dinàmica en Strategy.
+	% Un malentès en el disseny de Sheet va fer fer un refactor per a EitherValue.
+	% El refactor va ser senzil, ja que liftA2 es aplicable en Eithers (és un aplicatiu)
+	\subsection{LazyValue a Cell}
+	% Per a realitzar lazyValue en les cel·les se va fer servir el patró observable. 
+	% Cada vegada que es canvia d'expressió es canvien tots els observables per cridar
+	% el metode només quan es necessari
+	\subsection{Sheet}
+	% La creació de les cel·les es lazy, es a dir, només es creen quan son estrictament necessaries,
+	% per a evitar ocupar massa memória en sheets molt grans quan no s'utilitza la majoria de cel·les.
+	% Tot i que accedir amb una Array d'arrays sembla més natural, un hashmap es molt transparent
+	% per com l'utilitza l'usuari final
+	\section{Problemes}
+	\subsection{References}
+	% References calculaba referències de la seva referència, i això donava problemes
+	% per afegir observadors (quan es generava el lazyvalue)
+	% Ara només retornen la primera referència
+	\subsection{Equals en Operation}
+	% Quan es va fer en primer lloc el template Method per a operation es va crear un mètode
+	% equals. Comparar funcions es indecidible com a problema, pel que es va haver d'eliminar
+	\subsection{Sheet, put i get}
+	% Primer vam pensar que només seria necessari utilzar el "MaybeValue" com a retorn del get.
+	% El problema ens va generar era que si ens portaven una casella inval·lida retornavem Empty,
+	% pel que vam fer el refactor d'Either. En crear el façade i en necessitar les cells per a crear 
+	% referències ens vam adonar d'haver fet malament l'anàlisi de requeriments dels mètodes,
+	% pel que es va canviar a Cell i llança excepcions de NoSuchElementException quan no troba
+	% la cel·la.
+	% Es va pensar d'utilitzar Optional, peró llavors el put i el get tindrien diferents formes de comunicar
+	% el mateix error, pel que es va recorrer a les excepcions
+	\section{Conclusions}
+
+
+\end{document}
+

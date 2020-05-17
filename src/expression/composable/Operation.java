@@ -6,7 +6,6 @@ import expression.simple.LeftError;
 import expression.utils.IntBinaryOperation;
 import sheet.Cell;
 
-import java.util.Objects;
 import java.util.Set;
 
 public class Operation implements Expression {
