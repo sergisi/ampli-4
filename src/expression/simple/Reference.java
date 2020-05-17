@@ -22,7 +22,9 @@ public class Reference implements Expression {
 
     @Override
     public Set<Cell> references() {
-        return new HashSet<>() {{add(ref);}};
+        return new HashSet<>() {{
+            add(ref);
+        }};
     }
 
     @Override

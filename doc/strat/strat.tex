@@ -1,0 +1,15 @@
+\begin{document}
+	La utilització del liftA2 feia el codi d'\texttt{Operation} simple, però creava una pregunta pròpia dels patrons
+	\textit{Template Method} i \textit{Strategy}: quin dels dos és més adient per aquest problema?
+	 La facilitat de crear lambdes des de Java 8 fa que últimament s'opti més pel segon, però inclús així, els problemes
+	 que sorgien sobre que era millor utilitzar ens feien preveure quins requeriments serien més probables 
+	 que canviessin en aquest tipus d'operacions. El primer que es va pensar era que 
+	 es demanaria la resta d'operacions binàries, és a dir, la resta, la divisió, el mòdul i 
+	 la potència. El problema que ens generava són dos casos de la divisió i la potència, 
+	 que són $\frac{a}{0}$ i $0^0$. Ambdós mètodes són indeterminacions matemàtiques que poden causa 
+	 \texttt{ArithmeticExceptions} en Java, però les excepcions en un programa on s'involucra un usuari poden arribar a causar
+	 de forma descontrolada el mateix tancament de l'aplicació.\\
+	 \\
+	 Si més  no, el problema semblava adherent als dos patrons, i donat com s'utilitza \texttt{liftA2} es va decidir utilitzar
+	 \textit{Strategy},  ja que quedava més entenedor.
+\end{document}

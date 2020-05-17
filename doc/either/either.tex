@@ -1,0 +1,11 @@
+\begin{document}
+	Tot i que al començament vam deixar la captació de l'error aritmètic com un simple \textit{try-catch}
+	i retornar el valor \textit{Empty} quan aquesta passava, un malentès dels requeriments ens va fer 
+	veure que l'\texttt{Either} era més necessari per adaptar-se correctament a qualsevol canvi 
+	en els requeriments. Aquest refactor, però, va ser senzill, ja que només 
+	es va necessitar un paràmetre més al constructor i canviar els noms de les classes, 
+	a més a més de fer el constructor públic. Però, es va deixar la utilització de l'\texttt{Empty}
+	com a \textit{Singleton}, ja que es creia que la creació d'instàncies buides seria prou gran per a compartir
+	referències entre aquests. Així, la captació dels errors en \texttt{liftA2} i en futurs requeriments serà molt
+	més natural adaptar-se que utilitzant un \texttt{MaybeValue}.
+\end{document}

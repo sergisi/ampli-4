@@ -2,7 +2,6 @@ package expression.composable;
 
 import expression.Expression;
 import expression.simple.EitherValue;
-import expression.simple.LeftError;
 import expression.utils.IntBinaryOperation;
 import sheet.Cell;
 
@@ -20,11 +19,7 @@ public class Operation implements Expression {
     }
 
     public EitherValue evaluate() {
-        try {
-            return left.evaluate().liftA2(right.evaluate(), this.operator);
-        } catch (Exception e) {
-            return new LeftError(e.getMessage());
-        }
+        return left.evaluate().liftA2(right.evaluate(), this.operator);
     }
 
     @Override

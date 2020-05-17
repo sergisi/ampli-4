@@ -62,14 +62,17 @@
 	% Operació de haskell
 	% La idea es treure la necessitat dels ifs en la Operation (treure la lògica del MaybeValue)
 	% S'ha implementat com un double dispatch
+	 \subfile{lift/lifta2.tex}
 	\subsection{Operation i el patró Strategy}
 	% Template method quedava una mica estrany utilitzant liftA2
 	% Strategy quedava més net
+	\subfile{strat/strat.tex}
 	\subsection{EitherValue}
 	% Utilitzar MaybeValue no encapsulava els errors que es poguessin generar de forma
 	% dinàmica en Strategy.
 	% Un malentès en el disseny de Sheet va fer fer un refactor per a EitherValue.
 	% El refactor va ser senzil, ja que liftA2 es aplicable en Eithers (és un aplicatiu)
+	\subfile{either/either.tex}
 	\subsection{LazyValue a Cell}
 	% Per a realitzar lazyValue en les cel·les se va fer servir el patró observable. 
 	% Cada vegada que es canvia d'expressió es canvien tots els observables per cridar
@@ -96,6 +99,7 @@
 	% la cel·la.
 	% Es va pensar d'utilitzar Optional, peró llavors el put i el get tindrien diferents formes de comunicar
 	% el mateix error, pel que es va recorrer a les excepcions
+	\subfile{putget/putget.tex}
 	\section{Conclusions}
 
 

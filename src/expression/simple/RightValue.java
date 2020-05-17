@@ -27,7 +27,11 @@ public class RightValue implements EitherValue {
 
     @Override
     public EitherValue liftA2(RightValue val1, IntBinaryOperation op) {
-        return new RightValue(op.operate(val1.getValue(), this.getValue()));
+        try {
+            return new RightValue(op.operate(val1.getValue(), this.getValue()));
+        } catch (Exception e) {
+            return new LeftError(e.getMessage());
+        }
     }
 
     @Override

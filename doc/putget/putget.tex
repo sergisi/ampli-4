@@ -1,0 +1,15 @@
+\begin{document}
+	En la part de decisions del disseny, s'expressa que un malentès ens porta a canviar el 
+	\texttt{MaybeValue} a un \texttt{EitherValue}. Aquest canvi en el disseny era causat per
+	un malentès del mètode \texttt{get} de \texttt{Sheet}. El malentès va ser que retornaria aquest
+	mètode. En primer lloc es va pensar de retornar el \texttt{MaybeValue}, ja que pensàvem que 
+	no necessitaríem mai la cel·la en qüestió. Però, això ens portava a veure que una casella buida
+	podia significar massa coses, pel que vam refactoritzar el codi portant-lo a utilitzar \textit{Either}.
+	\\
+	\\
+	Més tard, ens vam adonar que era necessari retornar \texttt{Cell} per a poder crear \texttt{Reference},
+	pel que aquest motiu de refactor va quedar obsolet. Llavors es va decidir si tornar \texttt{Optional}
+	 en el get o fer el mateix que en el mètode \texttt{put}. En aquell moment es va decidir que seria més
+	 lògic seguir les excepcions en els dos mètodes, donat que \textit{Sheet} era mutable i fer que el mètode
+	 \texttt{put} retornés algun valor seria contraintuïtiu en l'usuari final.
+\end{document}
