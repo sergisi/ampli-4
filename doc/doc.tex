@@ -127,9 +127,9 @@ Per tal de realitzar l'avaluació de les cel·les de forma mandrosa, s'ha decidi
 	% per com l'utilitza l'usuari final
 	\section{Problemes}
 	\subsection{References}%Ian
-	A References es guarda la cel·la referenciada i un set de cel·les a les quals referència.
-	References primerament avaluava la cel·la referenciada i les referències d'aquesta,
-	això va acabar donant problemes a l'hora d'afegir observadors (quan es generava el lazyvalue).
+	A \texttt{References} es guarda la cel·la referenciada i un set de cel·les a les quals referència.
+	\texttt{References} primerament avaluava la cel·la referenciada i les referències d'aquesta,
+	això va acabar donant problemes a l'hora d'afegir observadors (quan es generava el \texttt{lazyvalue}).
 	Ara només retorna la primera referència, aconseguint així una propagació més controlada.
 
 	% References calculaba referències de la seva referència, i això donava problemes
@@ -138,7 +138,12 @@ Per tal de realitzar l'avaluació de les cel·les de forma mandrosa, s'ha decidi
 	\subsection{Equals en Operation}%Quim
 	% Quan es va fer en primer lloc el template Method per a operation es va crear un mètode
 	% equals. Comparar funcions es indecidible com a problema, pel que es va haver d'eliminar
-En primera instància es va decidir fer ús de Template Method per a implementar la part corresponent a Operation, Sum i Mult. Però a l'hora d'implementar el mètode equals ens vam adonar que, al treballar amb funcions anònimes ens donava problemes, ja que, comparar funcions és un problema indecidible. Per tant, es va decidir canviar de metodologia i aplicar l'Strategy Method ja explicat anteriorment.
+En primera instància es va decidir fer ús de \textit{Template Method} per a implementar la part corresponent 
+a \texttt{Operation}, \texttt{Sum} i \texttt{Mult}. En aquesta instància vam generar el mètode equals per a
+realitzar els tests Però, quan es va canviar el patró de \textit{Template Method} a \textit{Strategy},
+ens vam adonar que treballar amb funcions anònimes ens donava problemes, ja que comparar 
+funcions és un problema indecidible (el teorema de Cook és aplicable). Per tant, es va decidir prescindir 
+d'aquest mètode. 
 	\subsection{Sheet, put i get}%Sergi
 	% Primer vam pensar que només seria necessari utilzar el "MaybeValue" com a retorn del get.
 	% El problema ens va generar era que si ens portaven una casella inval·lida retornavem Empty,
@@ -150,7 +155,12 @@ En primera instància es va decidir fer ús de Template Method per a implementar
 	% el mateix error, pel que es va recorrer a les excepcions
 	\subfile{putget/putget.tex}
 	\section{Conclusions}%Quim
-Per la implementació d'aquesta solució s'ha fet ús de tres patrons de disseny diferents. El patró façana el qual ha permés ficar una capa que simplifica i unifica l'utilització del nostre disseny. Per altra banda el patró observador ens ha permés realitzar l'avaluació mandrosa de les cel·les de forma senzilla. També l'Strategy Method, que a falta de no poder treballar amb template method, ens ha permés seguir treballant amb funcions anònimes a Operation. I finalment el patró NullValue, que l'hem adaptat una mica substituint-lo per un EitherValue.
+Per la implementació d'aquesta solució s'ha fet ús de tres patrons de disseny diferents. El patró façana 
+ha permès ficar una capa que simplifica i unifica la utilització del nostre disseny. Per altra banda 
+el patró observador ens ha permès realitzar l'avaluació "reactiva" de les cel·les de forma senzilla. També 
+l'\textit{Strategy Method}, que a falta de no poder treballar amb \textit{Template Method}, ens ha permès 
+seguir treballant amb funcions anònimes a \texttt{Operation}. I finalment el patró \texttt{NullValue}, que l'hem 
+adaptat una mica substituint-lo per un \texttt{EitherValue}.
 
 \end{document}
 

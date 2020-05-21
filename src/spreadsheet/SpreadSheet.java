@@ -5,7 +5,6 @@ import expression.composable.Operation;
 import expression.simple.EitherValue;
 import expression.simple.Reference;
 import expression.simple.RightValue;
-import sheet.Cell;
 import sheet.Sheet;
 
 public class SpreadSheet {

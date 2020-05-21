@@ -1,17 +1,18 @@
 \begin{document}
 	La idea de les pistes que donava la pràctica amb les operacions 
-	\texttt{hasValue} i \texttt{get} en els \texttt{MaybeValues} ens 
-	donava la sensació que transportava la lògica de manipular \texttt{MaybeValues} als mètodes d'\texttt{Operation}.
+	\texttt{hasValue} i \texttt{get} en els \texttt{MaybeValues} 
+	donaven la sensació que transportava la lògica de manipular \texttt{MaybeValues} als mètodes d'\texttt{Operation}.
 	Donat que aquesta classe era una referència clara a Haskell, es va investigar quina seria la forma natural de fer-ho
-	en aquest llenguatge. Les formes que vam trobar incloent fer \texttt{MaybeValue} un aplicatiu o una mònada. El problema
-	d'aquests era que el codi es tornava progressivament més difícil d'implementar i utilitzar, pel que es va decidir veure
-	funcions més específiques. Pel nostre cas d'ús, només necessitem
-	 la signatura de \texttt{(a-> b-> c) -> f a -> f b -> f c},
-	que és exactament la del mètode \texttt{liftA2} de Haskell.\\
+	en aquest llenguatge. Les formes que es van trobar requerien fer \texttt{MaybeValue} un aplicatiu o una mònada. 
+	El problema
+	d'aquests era que el codi es tornava progressivament més difícil d'implementar, pel que es va decidir veure
+	funcions més específiques. Pel nostre cas d'ús, només necessitem la signatura de 
+	\texttt{(a-> b-> c) -> f a -> f b -> f c}, que és exactament la del mètode \texttt{liftA2} de Haskell.\\
 	\\
-	Per a poder implementar aquest mètode, es va utilitzar la tècnica d'un \textit{double dispatch}, que ens permetia canviar
+	Per a poder implementar aquest mètode, es va utilitzar la tècnica d'un \textit{double dispatch}, 
+	que ens permetia canviar
 	el comportament del mètode sabent més informació per part del compilador sense necessitat d'incloure \textit{ifs}.
-	D'aquesta forma, teniem només dos possibilitats: si el paràmetre era \texttt{MaybeValue} o si el aquest era 
+	D'aquesta forma, es té només dos possibilitats: si el paràmetre era \texttt{MaybeValue} o si aquest era 
 	\texttt{SomeValue}, ja que en el cas que fos \texttt{NoValue} el 
 	mètode es retornaria a si mateix sense cap comprovació
 	addicional. En el cas en el qual els dos són \texttt{SomeValue} el

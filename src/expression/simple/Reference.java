@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class Reference implements Expression {
 
-    Cell ref;
+    private final Cell ref;
 
     public Reference(Cell ref) {
         this.ref = ref;
